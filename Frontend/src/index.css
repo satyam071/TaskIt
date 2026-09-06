@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
+
+
+
+@import "tailwindcss";
+
+@theme {
+  --font-zeyada: "Zeyada", cursive;
+  --font-questrial: "Questrial", sans-serif;
+  --font-bowlby:"Bowlby One SC", sans-serif;
+}
