@@ -15,6 +15,7 @@ interface Todo {
 interface Task {
   _id: string;
   title: string;
+  completed:boolean;
 }
 interface Props {
 
@@ -90,8 +91,10 @@ export const avatars = [
 const HomePage: React.FC<Props> = (props) => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { user } = useSelector((state: RootState) => state.login)
+  const [selectedTodo, setSelectedTodo] = useState<string | null>(null);
   console.log(user?.username)
   useEffect(() => {
+    console.log("Component rerenders")
     const fetchTodos = async () => {
       const response = await getTodos();
       console.log(response);
@@ -104,7 +107,7 @@ const HomePage: React.FC<Props> = (props) => {
 
 
 
-  }, [])
+  }, [selectedTodo])
   return (
     <div className="bg-black text-white min-h-screen ">
       {/* header */}
@@ -136,7 +139,7 @@ const HomePage: React.FC<Props> = (props) => {
 
       </div>
       {/* todos */}
-      <div className=" flex gap-5 m-5">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {todos.map((item) => {
           const randomAvatar =
             avatars[Math.floor(Math.random() * avatars.length)];
@@ -146,7 +149,10 @@ const HomePage: React.FC<Props> = (props) => {
               key={item._id}
               {...item}
               avatar={randomAvatar.image}
-              color={randomAvatar.color}
+              colour={randomAvatar.color}
+              isOpen={selectedTodo === item._id}
+              onOpen={() => setSelectedTodo(item._id)}
+              onClose={() => setSelectedTodo(null)}
             />
           );
         })}
@@ -169,7 +175,7 @@ const HomePage: React.FC<Props> = (props) => {
         cursor-pointer
         
       ">
-        <p className="font-bowlby text-5xl flex justify-around items-center h-full">+</p>
+          <p className="font-bowlby text-5xl flex justify-around items-center h-full">+</p>
 
         </div>
       </div>
