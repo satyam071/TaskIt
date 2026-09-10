@@ -1,1 +1,1 @@
-export const BASE_URL="http://localhost:3000"
+export const BASE_URL="https://taskit-p4ae.onrender.com"
