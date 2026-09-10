@@ -15,10 +15,16 @@ export const makeTodo = async ({ heading, tasks }: MakeTodoPayload) => {
   const url = BASE_URL + "/api/todo/";
 
   try {
-    const response = await axios.post(url, {
-      heading,
-      tasks: tasks.map(({ title, completed }) => ({ title, completed })),
-    });
+    const response = await axios.post(
+      url,
+      {
+        heading,
+        tasks: tasks.map(({ title, completed }) => ({ title, completed })),
+      },
+      {
+        withCredentials: true,
+      },
+    );
 
     return response.data;
   } catch (error) {

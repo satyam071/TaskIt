@@ -141,10 +141,7 @@ const HomePage: React.FC<Props> = () => {
           </div>
         </div>
 
-        {/* Logout */}
-        <button className="w-full rounded-xl border border-black px-5 py-3 text-base transition hover:bg-black hover:text-white sm:w-auto sm:px-7 sm:py-3 md:text-lg">
-          Logout
-        </button>
+        
 
       </div>
       {/* todos */}
