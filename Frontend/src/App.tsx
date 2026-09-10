@@ -9,8 +9,8 @@ interface Props {
 
 }
 
-const App: React.FC<Props> = (props) => {
-  const { user, loading, isLoggedIn } = useSelector((state: RootState) => state.login);
+const App: React.FC<Props> = () => {
+  const { isLoggedIn } = useSelector((state: RootState) => state.login);
   console.log(isLoggedIn);
   return (
     <div className="bg-black">

@@ -20,6 +20,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
     setIsCompleted((prev) => !prev)
     try {
       const response = await updateStatus(headingId, _id, isCompleted)
+      return response;
 
     } catch (error) {
       console.log(error)

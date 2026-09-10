@@ -1,11 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "./BASE_URL";
 
-interface Todo {
-  headingId: string;
-  taskId: string;
+// interface Todo {
+//   headingId: string;
+//   taskId: string;
   
-}
+// }
 
 export const updateStatus = async ( headingId:string, taskId:string, status : boolean) => {
   const url = BASE_URL + `/api/todo/${headingId}/tasks/${taskId}/status`;

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface Props { }
 
-const AuthPage: React.FC<Props> = (props) => {
+const AuthPage: React.FC<Props> = () => {
   const authContext = useContext(AuthContext)
   return (
     <div className="p-4 ">
