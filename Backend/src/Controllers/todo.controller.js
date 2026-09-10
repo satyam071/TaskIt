@@ -214,6 +214,50 @@ async function updateTask(req, res) {
   }
 }
 
+async function updateStatus(req, res) {
+  const { headingId, taskId } = req.params;
+  if (!headingId || !taskId) {
+    return res.status(401).json({
+      message: "IDs not found ",
+      headingId,
+      taskId,
+    });
+  }
+
+  try {
+    const todo = await todoModel.findOneAndUpdate(
+      {
+        _id: headingId,
+        "tasks._id": taskId,
+      },
+      {
+        $set: {
+          "tasks.$.completed": req.body.status,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+    if (!todo) {
+      return res.status(404).json({
+        message: "Todo or task not found",
+      });
+    }
+    return res.status(201).json({
+      message: "Status Updated Successfully",
+      todo,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      message: "Forbidden",
+      headingId,
+      taskId,
+    });
+  }
+}
+
 async function deleteTask(req, res) {
   const { headingId, taskId } = req.params;
 
@@ -221,7 +265,7 @@ async function deleteTask(req, res) {
     return res.status(401).json({
       message: "IDs not found",
       headingId,
-      taskId
+      taskId,
     });
   }
 
@@ -247,7 +291,7 @@ async function deleteTask(req, res) {
       return res.status(401).json({
         message: "No todo Found",
         headingId,
-        taskId
+        taskId,
       });
     }
 
@@ -272,5 +316,6 @@ module.exports = {
   deleteTodo,
   postTasks,
   updateTask,
+  updateStatus,
   deleteTask,
 };

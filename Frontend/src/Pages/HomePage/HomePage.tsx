@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../../Image/Avatar.jpg"
 import Todos from "./Components/Todos";
-import axios from "axios";
+// import axios from "axios";
 import { getTodos } from "../../API/getTodos";
+import AddTodo from "./Components/AddTodo";
+import { makeTodo } from "../../API/makeTodo";
 
 interface Todo {
   _id: string;
@@ -15,7 +17,7 @@ interface Todo {
 interface Task {
   _id: string;
   title: string;
-  completed:boolean;
+  completed: boolean;
 }
 interface Props {
 
@@ -88,16 +90,23 @@ export const avatars = [
   },
 ];
 
-const HomePage: React.FC<Props> = (props) => {
+const HomePage: React.FC<Props> = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { user } = useSelector((state: RootState) => state.login)
   const [selectedTodo, setSelectedTodo] = useState<string | null>(null);
-  console.log(user?.username)
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
+  const handleAddTodo = async (newTodo: { heading: string; tasks: Task[] }) => {
+    try {
+      const response = await makeTodo(newTodo);
+      setTodos((prev) => [...prev, response.list]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    console.log("Component rerenders")
     const fetchTodos = async () => {
       const response = await getTodos();
-      console.log(response);
       setTodos(response.todos);
       return response;
 
@@ -126,7 +135,7 @@ const HomePage: React.FC<Props> = (props) => {
               Hello
             </h2>
 
-            <h1 className="text-xl sm:text-2xl md:text-3xl truncate max-w-[180px] sm:max-w-none">
+            <h1 className="text-xl sm:text-2xl md:text-3xl truncate max-w-45 sm:max-w-none">
               {user?.username}
             </h1>
           </div>
@@ -139,7 +148,7 @@ const HomePage: React.FC<Props> = (props) => {
 
       </div>
       {/* todos */}
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 px-5 sm:px-8 md:px-12 lg:px-20 pb-10">
         {todos.map((item) => {
           const randomAvatar =
             avatars[Math.floor(Math.random() * avatars.length)];
@@ -156,7 +165,7 @@ const HomePage: React.FC<Props> = (props) => {
             />
           );
         })}
-        <div className="
+        {/* <div className="
         w-full
         max-w-sm
         sm:w-70
@@ -177,7 +186,13 @@ const HomePage: React.FC<Props> = (props) => {
       ">
           <p className="font-bowlby text-5xl flex justify-around items-center h-full">+</p>
 
-        </div>
+        </div> */}
+        <AddTodo
+          isOpen={isAddOpen}
+          onOpen={() => setIsAddOpen(true)}
+          onClose={() => setIsAddOpen(false)}
+          onSubmit={handleAddTodo}
+        />
       </div>
 
     </div>

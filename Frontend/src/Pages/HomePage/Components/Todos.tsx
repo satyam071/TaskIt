@@ -1,7 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCheck } from "react-icons/fa";
-import { useState } from "react";
 import TaskItem from "./TaskItem"
 
 
@@ -33,12 +32,12 @@ const Todos: React.FC<TodosProps> = ({
   isOpen,
   onOpen,
   onClose,
+  _id
 
 
 }) => {
-  const handleTaskClick = (taskId: string) => {
-    console.log("Task clicked:", taskId);
-  };
+  const headingId = _id
+  // console.log("Item ki Id:",_id)
 
 
   return (
@@ -137,7 +136,10 @@ const Todos: React.FC<TodosProps> = ({
                 z-50
                 left-1/2
                 top-1/2
-                w-[40vw]
+                w-[90vw]
+                sm:w-[70vw]
+                md:w-[55vw]
+                lg:w-[40vw]
                 min-h-[45vh]
                 max-h-[80vh]
                 -translate-x-1/2
@@ -181,8 +183,8 @@ const Todos: React.FC<TodosProps> = ({
               <div className="flex items-center gap-5">
                 <img
                   className="
-                    h-20
-                    w-20
+                    h-16 w-16
+                    sm:h-20 sm:w-20
                     rounded-full
                     object-cover
                     border
@@ -192,17 +194,18 @@ const Todos: React.FC<TodosProps> = ({
                   alt=""
                 />
 
-                <h1 className="text-3xl font-bowlby">
+                <h1 className="text-2xl sm:text-3xl font-bowlby">
                   {heading}
                 </h1>
               </div>
 
               {/* TASKS */}
               <div className="mt-10 space-y-4">
-                {tasks.map((task) => (
+                {tasks.map((task,_id) => (
                   <TaskItem
                     key={task._id}
                     {...task}
+                    headingId={headingId}
                   />
                 ))}
               </div>

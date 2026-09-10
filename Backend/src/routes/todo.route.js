@@ -11,7 +11,12 @@ router.patch("/:headingId",authMiddleware.authToken,todoController.updateTodoByH
 router.delete("/:headingId",authMiddleware.authToken,todoController.deleteTodo)
 router.post("/:headingId/tasks",authMiddleware.authToken,todoController.postTasks)
 router.patch("/:headingId/tasks/:taskId",authMiddleware.authToken,todoController.updateTask)
+router.patch("/:headingId/tasks/:taskId/status",authMiddleware.authToken,todoController.updateStatus)
 router.delete("/:headingId/tasks/:taskId",authMiddleware.authToken,todoController.deleteTask)
 // router.post("/:headingId",todoController.getListByHeading)
 
 module.exports = router
+
+
+// 6a98fbb87b6f936de138d13a
+// 6a98fbb87b6f936de138d13c
