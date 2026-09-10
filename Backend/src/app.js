@@ -7,7 +7,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://taskit-1-jq6j.onrender.com",
     credentials: true,
   }),
 );
