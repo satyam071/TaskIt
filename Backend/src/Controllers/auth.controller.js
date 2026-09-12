@@ -41,8 +41,8 @@ async function registerUser(req, res) {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false, // localhost
-    sameSite: "lax",
+    // secure: false, // localhost
+    // sameSite: "lax",
   });
 
   res.status(201).json({
@@ -86,8 +86,8 @@ async function loginUser(req, res) {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false, // localhost
-    sameSite: "lax",
+    // secure: false, // localhost
+    // sameSite: "lax",
   });
 
   res.status(200).json({
